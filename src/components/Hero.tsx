@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
               <div className="absolute -inset-4 bg-gradient-to-r from-red-600/20 via-amber-500/20 to-emerald-600/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition duration-1000" />
               <div className="relative rounded-2xl p-2 sm:p-4 bg-gradient-to-b from-[#14231d] to-[#0d1612] border border-[#243d32] shadow-2xl">
                 <img
-                  src="/assets/ebook-250.webp"
+                  src="/assets/aistudio/Chef_e_Livro_de_Receitas_de_Natal_a86f1725.png"
                   alt="Livro Digital 250 Receitas de Natal - Chef Antônio"
                   className="w-full h-auto object-contain rounded-lg animate-float"
                   width={900}

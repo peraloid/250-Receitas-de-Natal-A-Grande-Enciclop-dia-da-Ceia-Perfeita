@@ -126,11 +126,27 @@ const faqData: [string, string][] = [
   ],
 ];
 
-// Top Countdown/Timer component
+// Top Countdown/Timer component starting from 5:00
 function TopTimer() {
+  const [secondsLeft, setSecondsLeft] = useState<number>(300);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSecondsLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const minutes = Math.floor(secondsLeft / 60);
+  const seconds = secondsLeft % 60;
+  const formattedTime = `${minutes}:${String(seconds).padStart(2, '0')}`;
+
   return (
     <div className="timer">
-      ⌛ <strong>Oferta especial disponível por tempo limitado</strong>
+      <strong className="timer-pulse-gold">
+        {formattedTime}
+      </strong>{' '}
+      <strong>Oferta especial disponível por tempo limitado</strong>
     </div>
   );
 }
@@ -281,14 +297,14 @@ export default function App() {
               <br className="desktop-break" /> da Ceia Perfeita
             </span>
           </h1>
-          <p>
-            Receitas deliciosas, práticas e tradicionais, incluindo drinks e bebidas,
-            para encantar toda a família
-            <br className="desktop-break" /> neste Natal <b>🎄✨</b>
+          <p style={{ color: '#111111', fontWeight: 800, textTransform: 'uppercase' }}>
+            RECEITAS DELICIOSAS, PRÁTICAS E TRADICIONAIS, INCLUINDO DRINKS E BEBIDAS,
+            PARA ENCANTAR TODA A FAMÍLIA
+            <br className="desktop-break" /> NESTE NATAL <b>🎄✨</b>
           </p>
           <div className="book-wrap">
             <img
-              src="/assets/ebook-250.webp"
+              src="/assets/aistudio/Chef_e_Livro_de_Receitas_de_Natal_a86f1725.png"
               alt="Mockup 3D do E-book 250 Receitas de Natal"
               width={900}
               height={600}
