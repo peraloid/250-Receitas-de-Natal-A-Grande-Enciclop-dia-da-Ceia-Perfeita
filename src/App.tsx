@@ -126,9 +126,9 @@ const faqData: [string, string][] = [
   ],
 ];
 
-// Top Countdown/Timer component starting from 5:00
+// Top Countdown/Timer component starting from 8:00
 function TopTimer() {
-  const [secondsLeft, setSecondsLeft] = useState<number>(300);
+  const [secondsLeft, setSecondsLeft] = useState<number>(480);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -145,8 +145,10 @@ function TopTimer() {
     <div className="timer">
       <strong className="timer-pulse-gold">
         {formattedTime}
-      </strong>{' '}
-      <strong>Oferta especial disponível por tempo limitado</strong>
+      </strong>
+      <strong className="timer-pulse-neon-green">
+        50 receitas de Natal com promoção imperdível
+      </strong>
     </div>
   );
 }
@@ -663,30 +665,35 @@ export default function App() {
                 Pagamento Único · Acesso Imediato no WhatsApp
               </em>
             </div>
-                <a
-                  href={buildCheckoutUrl(
-                    promoModalPrice === '13,82'
-                      ? 'https://pay.cakto.com.br/3f8znez_1312928'
-                      : 'https://pay.cakto.com.br/3zrmcwb_1312994'
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="buy promo-cta"
-                  style={{ display: 'block', textDecoration: 'none', width: '100%', textAlign: 'center' }}
-                >
-                  🎄 QUERO A EDIÇÃO PREMIUM POR R$ {promoModalPrice}
-                </a>
-                {promoModalPrice === '13,82' && (
-                  <a
-                    href={buildCheckoutUrl('https://pay.cakto.com.br/atp4hfm_1313342')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="promo-skip"
-                  >
-                    Não, obrigado. Quero continuar apenas com a oferta básica sem bônus
-                    por R$ 12,00
-                  </a>
-                )}
+            <a
+              href={buildCheckoutUrl(
+                promoModalPrice === '13,82'
+                  ? 'https://pay.cakto.com.br/3f8znez_1312928'
+                  : 'https://pay.cakto.com.br/3zrmcwb_1312994'
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="buy promo-cta"
+              style={{
+                display: 'block',
+                textDecoration: 'none',
+                width: '100%',
+                textAlign: 'center',
+              }}
+            >
+              🎄 QUERO A EDIÇÃO PREMIUM POR R$ {promoModalPrice}
+            </a>
+            {promoModalPrice === '13,82' && (
+              <a
+                href={buildCheckoutUrl('https://pay.cakto.com.br/atp4hfm_1313342')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="promo-skip"
+              >
+                Não, obrigado. Quero continuar apenas com a oferta básica sem bônus
+                por R$ 12,00
+              </a>
+            )}
           </div>
         </div>
       )}
