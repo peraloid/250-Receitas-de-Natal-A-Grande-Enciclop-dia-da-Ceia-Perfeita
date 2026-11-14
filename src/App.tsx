@@ -147,7 +147,7 @@ function TopTimer() {
         {formattedTime}
       </strong>
       <strong className="timer-pulse-neon-green">
-        50 receitas de Natal com promoção imperdível
+        250 receitas de Natal com promoção imperdível
       </strong>
     </div>
   );
