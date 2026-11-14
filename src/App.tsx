@@ -317,14 +317,22 @@ export default function App() {
             <br className="desktop-break" /> NESTE NATAL <b>🎄✨</b>
           </p>
           <div className="book-wrap">
-            <img
-              src="/assets/aistudio/Chef_e_Livro_de_Receitas_de_Natal_a86f1725.png"
-              alt="Mockup 3D do E-book 250 Receitas de Natal"
-              width={900}
-              height={600}
-              fetchPriority="high"
-              decoding="sync"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet="/assets/hero-chef-livro-sm.webp 720w, /assets/hero-chef-livro.webp 1080w"
+                sizes="(max-width: 767px) 360px, 540px"
+              />
+              <img
+                src="/assets/aistudio/Chef_e_Livro_de_Receitas_de_Natal_a86f1725.png"
+                alt="Mockup 3D do E-book 250 Receitas de Natal"
+                width={1080}
+                height={608}
+                loading="eager"
+                fetchPriority="high"
+                decoding="sync"
+              />
+            </picture>
           </div>
           <div className="hero-price">
             <span>⭐ Oferta Especial de Natal</span>
@@ -418,6 +426,7 @@ export default function App() {
                     alt={`Conversa no WhatsApp da cliente: ${client} · ${recipe}`}
                     width={420}
                     height={747}
+                    loading="lazy"
                     fetchPriority="low"
                     decoding="async"
                   />
@@ -456,6 +465,7 @@ export default function App() {
                     alt={title}
                     width={520}
                     height={735}
+                    loading="lazy"
                     fetchPriority="low"
                     decoding="async"
                   />
@@ -496,7 +506,9 @@ export default function App() {
                     alt={title}
                     width={240}
                     height={302}
-                    decoding="sync"
+                    loading="lazy"
+                    fetchPriority="low"
+                    decoding="async"
                   />
                 </div>
                 <h3>{title}</h3>
@@ -548,17 +560,14 @@ export default function App() {
           </h2>
           <article className="comment">
             <div className="comment-head">
-              {commentsData.map((c, idx) => (
-                <img
-                  key={c.name}
-                  src={c.avatar}
-                  alt={c.name}
-                  width={40}
-                  height={40}
-                  decoding="sync"
-                  className={idx === commentIdx ? '' : 'is-hidden'}
-                />
-              ))}
+              <img
+                src={currentComment.avatar}
+                alt={currentComment.name}
+                width={40}
+                height={40}
+                loading="lazy"
+                decoding="async"
+              />
               <div>
                 <b>{currentComment.name}</b>
                 <small>{currentComment.time}</small>
