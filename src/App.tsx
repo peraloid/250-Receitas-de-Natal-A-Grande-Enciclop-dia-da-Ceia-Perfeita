@@ -13,7 +13,6 @@ import {
   Lightbulb,
   LockKeyhole,
   ShieldCheck,
-  X,
   Zap,
 } from 'lucide-react';
 
@@ -171,10 +170,12 @@ function CtaButton({ children }: { children: React.ReactNode }) {
 // Pricing Card component
 interface PriceCardProps {
   premium?: boolean;
-  onBuyClick: () => void;
+  checkoutUrl: string;
 }
 
-function PriceCard({ premium = false, onBuyClick }: PriceCardProps) {
+function PriceCard({ premium = false, checkoutUrl }: PriceCardProps) {
+  const destinationUrl = buildCheckoutUrl(checkoutUrl);
+
   const features = premium
     ? [
         '250 Receitas de Natal Completas',
@@ -206,14 +207,21 @@ function PriceCard({ premium = false, onBuyClick }: PriceCardProps) {
       <span className="offer-label">
         {premium ? '🌟 EDIÇÃO PREMIUM' : '🎁 OFERTA BÁSICA'}
       </span>
-      <h3 onClick={onBuyClick} className="cursor-pointer">
-        {premium ? (
-          <>
-            250 Receitas de Natal Edição <b>PREMIUM</b>
-          </>
-        ) : (
-          '250 Receitas de Natal'
-        )}
+      <h3>
+        <a
+          href={destinationUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cursor-pointer"
+        >
+          {premium ? (
+            <>
+              250 Receitas de Natal Edição <b>PREMIUM</b>
+            </>
+          ) : (
+            '250 Receitas de Natal'
+          )}
+        </a>
       </h3>
       <ul>
         {features.map((item) => (
@@ -240,12 +248,17 @@ function PriceCard({ premium = false, onBuyClick }: PriceCardProps) {
       <div className="price">
         <span>R$ {premium ? '60,00' : '36,00'}</span>
         <small>-55%</small>
-        <strong>R$ {premium ? '17' : '12'}</strong>
+        <strong>R$ {premium ? '14' : '12'}</strong>
         <em>Pagamento Único</em>
       </div>
-      <button type="button" onClick={onBuyClick} className="buy w-full">
+      <a
+        href={destinationUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="buy w-full"
+      >
         ADQUIRIR RECEITAS AGORA
-      </button>
+      </a>
       <div className="trust">
         <span>
           <LockKeyhole /> Compra Segura
@@ -261,7 +274,6 @@ function PriceCard({ premium = false, onBuyClick }: PriceCardProps) {
 export default function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [commentIdx, setCommentIdx] = useState<number>(0);
-  const [promoModalPrice, setPromoModalPrice] = useState<string | null>(null);
 
   useEffect(() => {
     initUtmTracking();
@@ -518,8 +530,11 @@ export default function App() {
             </span>
           </h2>
           <div className="price-grid">
-            <PriceCard onBuyClick={() => setPromoModalPrice('13,82')} />
-            <PriceCard premium={true} onBuyClick={() => setPromoModalPrice('14,82')} />
+            <PriceCard checkoutUrl="https://pay.cakto.com.br/atp4hfm_1313342" />
+            <PriceCard
+              premium={true}
+              checkoutUrl="https://pay.cakto.com.br/3zrmcwb_1312994"
+            />
           </div>
         </div>
       </section>
@@ -618,85 +633,6 @@ export default function App() {
         </strong>
         <p>© 2026 – 250 Receitas de Natal | Todos os Direitos Reservados</p>
       </footer>
-
-      {/* 12. Exclusive Promo Discount Modal */}
-      {promoModalPrice && (
-        <div
-          className="promo-modal-backdrop"
-          onClick={() => setPromoModalPrice(null)}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="promo-modal-title"
-        >
-          <div className="promo-modal" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="promo-close"
-              onClick={() => setPromoModalPrice(null)}
-              aria-label="Fechar promoção"
-            >
-              <X />
-            </button>
-
-            <span className="promo-badge">🎁 ESPERE! PROMOÇÃO EXCLUSIVA</span>
-            <h3 id="promo-modal-title">
-              250 Receitas de Natal Edição <b>PREMIUM</b> por apenas R${' '}
-              {promoModalPrice}
-            </h3>
-            <p className="promo-desc">
-              Aproveite esta promoção especial para levar as{' '}
-              <strong>
-                250 Receitas de Natal Edição PREMIUM + Todos os 3 Bônus Exclusivos
-              </strong>{' '}
-              por apenas <strong>R$ {promoModalPrice}</strong>!
-            </p>
-            <div className="promo-perks">
-              <div>✓ 250 Receitas de Natal Completas + Versão Imprimível</div>
-              <div>🎁 Bônus 1: 🥗 Guia da Ceia Fitness de Natal</div>
-              <div>🎁 Bônus 2: 🎀 Decoração e Mesa de Natal</div>
-              <div>🎁 Bônus 3: 🍗 Mini Livro da Ceia Econômica</div>
-            </div>
-            <div className="promo-price-box">
-              <span className="promo-old">
-                De <s>R$ 17,00</s> por apenas:
-              </span>
-              <strong className="promo-new">R$ {promoModalPrice}</strong>
-              <em className="promo-note">
-                Pagamento Único · Acesso Imediato no WhatsApp
-              </em>
-            </div>
-            <a
-              href={buildCheckoutUrl(
-                promoModalPrice === '13,82'
-                  ? 'https://pay.cakto.com.br/3f8znez_1312928'
-                  : 'https://pay.cakto.com.br/3zrmcwb_1312994'
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="buy promo-cta"
-              style={{
-                display: 'block',
-                textDecoration: 'none',
-                width: '100%',
-                textAlign: 'center',
-              }}
-            >
-              🎄 QUERO A EDIÇÃO PREMIUM POR R$ {promoModalPrice}
-            </a>
-            {promoModalPrice === '13,82' && (
-              <a
-                href={buildCheckoutUrl('https://pay.cakto.com.br/atp4hfm_1313342')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="promo-skip"
-              >
-                Não, obrigado. Quero continuar apenas com a oferta básica sem bônus
-                por R$ 12,00
-              </a>
-            )}
-          </div>
-        </div>
-      )}
     </main>
   );
 }
